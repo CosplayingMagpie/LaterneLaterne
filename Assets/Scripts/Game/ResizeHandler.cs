@@ -7,8 +7,10 @@ public class ResizeHandler : MonoBehaviour
     //private Vector3 initialMousePos;
     //private Vector3 initialScale;
     private Transform parentTransform;
-    private Vector2 initialSize;
+    private Vector3 initialSize;
     private Vector3 initialPosition;
+    private Vector3 mouseDelta;
+    private Vector3 newSize;
     private float distance;
     //private RectTransform rectTransform;
 
@@ -56,9 +58,11 @@ public class ResizeHandler : MonoBehaviour
             selectedObject.transform.position = mousePosition + offset;
         }
 
-        distance = Vector3.Distance(initialPosition, transform.position);
-        Vector2 newSize = initialSize * (1 + distance );
-        parentTransform.localScale = newSize;
+        mouseDelta = initialPosition - transform.position;
+        newSize = initialSize + mouseDelta;
+        newSize.x = Mathf.Clamp(newSize.x, 0.5f, 1.5f);
+        //Vector3 newSize = initialSize * (1 + distance );
+        parentTransform.localScale = new Vector3 (newSize.x, newSize.x, newSize.x);
 
     }
 
