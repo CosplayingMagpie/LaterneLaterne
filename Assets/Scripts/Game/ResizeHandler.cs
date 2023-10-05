@@ -74,6 +74,7 @@ public class ResizeHandler : MonoBehaviour
         //Calculates the new size depending on the distance dragged
         distance = Vector3.Distance(parentTransform.position, transform.position);
         float newScale = distance / originalDistance;
+        newScale = Mathf.Clamp(newScale, 0.5f, 1.5f);
 
         //sets the new size
         parentTransform.localScale = new Vector3 (1, 1, 1) * newScale;
@@ -81,8 +82,18 @@ public class ResizeHandler : MonoBehaviour
         //calculates the new rotation
         newDirection = parentTransform.position - transform.position;
         float angle = Vector3.Angle(originalDirection, newDirection);
-        //sets the new rotation
-        parentTransform.rotation = Quaternion.Euler(0, 0, angle);
+
+        //sets the new rotation depending on y-value
+        if (transform.position.y < parentTransform.position.y)
+        {
+            parentTransform.rotation = Quaternion.Euler(0, 0, angle);
+        }
+
+        else
+        {
+            parentTransform.rotation = Quaternion.Euler(0, 0, -angle);
+        }
+        
 
     }
 
