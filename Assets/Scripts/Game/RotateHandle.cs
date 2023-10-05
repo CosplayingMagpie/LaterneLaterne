@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResizeHandler : MonoBehaviour
+public class RotateHandle : MonoBehaviour
 {
-
+    //private Vector3 initialMousePos;
+    //private Vector3 initialScale;
     private Transform parentTransform;
     private Vector3 initialSize;
     private float originalDistance;
@@ -12,12 +13,9 @@ public class ResizeHandler : MonoBehaviour
     private Vector3 mouseDelta;
     private Vector3 newSize;
     private float distance;
+    //private RectTransform rectTransform;
 
-    //For getting rotation
-    private Vector3 originalDirection;
-    private Vector3 newDirection;
-
-
+    //public GameObject overlay_select, overlay_drag,
     public GameObject selectedObject;
     private bool is_dragged;
     public bool dropMeNow, isPlaced;
@@ -27,20 +25,13 @@ public class ResizeHandler : MonoBehaviour
     private void Start()
     {
         parentTransform = transform.parent;
-
-
+        initialPosition = transform.position;
 
         is_dragged = false;
         dropMeNow = false;
         isPlaced = false;
 
-        //setting up the sizing variables
         originalDistance = Vector3.Distance(parentTransform.position, transform.position);
-        initialSize = parentTransform.localScale;
-        initialPosition = transform.position;
-
-        //setting up the rotation Variables
-        originalDirection = parentTransform.position - transform.position;
     }
 
 
@@ -71,19 +62,6 @@ public class ResizeHandler : MonoBehaviour
 
 
 
-        //Calculates the new size depending on the distance dragged
-        distance = Vector3.Distance(parentTransform.position, transform.position);
-        float newScale = distance / originalDistance;
-
-        //sets the new size
-        parentTransform.localScale = new Vector3 (1, 1, 1) * newScale;
-
-        //calculates the new rotation
-        newDirection = parentTransform.position - transform.position;
-        float angle = Vector3.Angle(originalDirection, newDirection);
-        //sets the new rotation
-        parentTransform.rotation = Quaternion.Euler(0, 0, angle);
-
     }
 
 
@@ -94,20 +72,14 @@ public class ResizeHandler : MonoBehaviour
     {
 
         is_dragged = true;
-        //GetComponent<Collider2D>().isTrigger = true;
+        GetComponent<Collider2D>().isTrigger = true;
     }
 
     private void OnMouseUp()
     {
-        
+        //overlay_drag.SetActive(false);
         is_dragged = false;
 
-        //resets position of handle and parent size, so next resizing will be to new scale
-        initialPosition = transform.position;
-        initialSize = parentTransform.localScale;
-
-        //resetting up the rotation Variables
-        originalDirection = parentTransform.position - transform.position;
     }
 
 }
