@@ -9,8 +9,6 @@ public class ResizeHandler : MonoBehaviour
     private Vector3 initialSize;
     private float originalDistance;
     private Vector3 initialPosition;
-    private Vector3 mouseDelta;
-    private Vector3 newSize;
     private float distance;
 
     //For getting rotation
@@ -18,21 +16,10 @@ public class ResizeHandler : MonoBehaviour
     private Vector3 newDirection;
 
 
-    public GameObject selectedObject;
-    private bool is_dragged;
-    public bool dropMeNow, isPlaced;
-    Vector3 offset;
-    //fieldPosition;
 
     private void Start()
     {
         parentTransform = transform.parent;
-
-
-
-        is_dragged = false;
-        dropMeNow = false;
-        isPlaced = false;
 
         //setting up the sizing variables
         originalDistance = Vector3.Distance(parentTransform.position, transform.position);
@@ -49,28 +36,6 @@ public class ResizeHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Collider2D targetObject = Physics2D.OverlapPoint(mousePosition);
-
-            //Wird ausgeführt, wenn angeklickt
-            if (targetObject)
-            {
-
-                selectedObject = targetObject.transform.gameObject;
-                offset = selectedObject.transform.position - mousePosition;
-            }
-        }
-        if (is_dragged)
-        {
-
-            selectedObject.transform.position = mousePosition + offset;
-        }
-
-
-
         //Calculates the new size depending on the distance dragged
         distance = Vector3.Distance(parentTransform.position, transform.position);
         float newScale = distance / originalDistance;
@@ -99,20 +64,8 @@ public class ResizeHandler : MonoBehaviour
 
 
 
-
-
-    private void OnMouseDrag()
-    {
-
-        is_dragged = true;
-        //GetComponent<Collider2D>().isTrigger = true;
-    }
-
     private void OnMouseUp()
     {
-        
-        is_dragged = false;
-
         //resets position of handle and parent size, so next resizing will be to new scale
         initialPosition = transform.position;
         initialSize = parentTransform.localScale;
