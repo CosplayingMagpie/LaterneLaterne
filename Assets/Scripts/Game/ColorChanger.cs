@@ -7,7 +7,7 @@ public class ColorChanger : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     //Use this, to change color via Sprite change
-    [SerializeField] Sprite[] coloredSprites;
+    //[SerializeField] Sprite[] coloredSprites;
 
     private int currentIndex;
 
@@ -35,21 +35,22 @@ public class ColorChanger : MonoBehaviour
 
     public void NextColor()
     {
-        Debug.Log("Next Color Method called");
         currentIndex++;
         // Use this, if you want to change the color via script
         //currentIndex %= colors.Length;
         //spriteRenderer.color = colors[currentIndex];
 
         // Use this, to change color via sprite change
-        currentIndex = currentIndex % coloredSprites.Length;
-        spriteRenderer.sprite = coloredSprites[currentIndex];
+        //currentIndex = currentIndex % coloredSprites.Length;
+        //spriteRenderer.sprite = coloredSprites[currentIndex];
+
+        //Change color via Material change
+        spriteRenderer.material = MaterialHandler.Instance.GetCraftPaper(currentIndex);
         
     }
 
     private void OnMouseDown()
     {
-        Debug.Log("next color button pressed");
         NextColor();
     }
 
