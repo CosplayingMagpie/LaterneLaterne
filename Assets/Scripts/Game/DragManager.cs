@@ -35,9 +35,14 @@ public class DragManager : MonoBehaviour
     public void UnregisterDraggedObject(DragObject drag)
     {
         Debug.Log("isOverLatnern " + lantern.GetComponent<LanternTest>().isOverLantern);
-        if(lantern.GetComponent<LanternTest>().isOverLantern == true)
+        if(lantern.GetComponent<LanternTest>().isOverLantern == true && _currentDraggedObject.tag == "DragObject")
         {
             drag.transform.SetParent(lantern.transform);
+        }
+
+        else if(_currentDraggedObject.tag == "DragObject")
+        {
+            drag.transform.SetParent(_defaultLayer);
         }
 
         else
