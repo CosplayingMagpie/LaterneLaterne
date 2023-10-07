@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ColorButton
   - Body
+  - DragObject
   layers:
   - Default
   - TransparentFX

@@ -7,7 +7,8 @@ public class DragManager : MonoBehaviour
     [SerializeField]
     private RectTransform
         _defaultLayer = null,
-        _dragLayer = null;
+        _dragLayer = null,
+        _parentLayer;
 
     private Rect _boundingBox;
 
@@ -22,12 +23,14 @@ public class DragManager : MonoBehaviour
     public void RegisterDraggedObject(DragObject drag)
     {
         _currentDraggedObject = drag;
+        _parentLayer = _currentDraggedObject.transform.parent.GetComponent<RectTransform>();
         drag.transform.SetParent(_dragLayer);
+        
     }
 
     public void UnregisterDraggedObject(DragObject drag)
     {
-        drag.transform.SetParent(_defaultLayer);
+        drag.transform.SetParent(_parentLayer);
         _currentDraggedObject = null;
     }
 
@@ -47,10 +50,5 @@ public class DragManager : MonoBehaviour
             rectTransform.lossyScale.y * rectTransform.rect.size.y);
 
         _boundingBox = new Rect(position, size);
-    }
-
-    public void TestCall()
-    {
-        Debug.Log("I can get called correctly");
     }
 }

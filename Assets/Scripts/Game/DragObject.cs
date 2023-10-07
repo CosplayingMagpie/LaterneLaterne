@@ -16,30 +16,24 @@ public class DragObject : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     private void Awake()
     {
         _manager = GetComponentInParent<DragManager>();
-        //Checks, whether I can call a function on the manager
-        _manager.TestCall();
         _centerPoint = (transform as RectTransform).rect.center;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("start drag");
         _manager.RegisterDraggedObject(this);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("keep on dragging");
-        transform.Translate(eventData.delta);
-        //if (_manager.IsWithinBounds(_worldCenterPoint + eventData.delta))
-        //{
-
-        //}
+        if (_manager.IsWithinBounds(_worldCenterPoint + eventData.delta))
+        {
+            transform.Translate(eventData.delta);
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("Stop the drag");
         _manager.UnregisterDraggedObject(this);
     }
 }
