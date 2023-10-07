@@ -8,12 +8,16 @@ public class DragManager : MonoBehaviour
     private RectTransform
         _defaultLayer = null,
         _dragLayer = null,
-        _parentLayer;
+        _parentLayer,
+        _lanternLayer;
 
     private Rect _boundingBox;
 
     private DragObject _currentDraggedObject = null;
     public DragObject CurrentDraggedObject => _currentDraggedObject;
+
+    //Temp
+    [SerializeField] GameObject lantern;
 
     private void Awake()
     {
@@ -30,7 +34,18 @@ public class DragManager : MonoBehaviour
 
     public void UnregisterDraggedObject(DragObject drag)
     {
-        drag.transform.SetParent(_parentLayer);
+        Debug.Log("isOverLatnern " + lantern.GetComponent<LanternTest>().isOverLantern);
+        if(lantern.GetComponent<LanternTest>().isOverLantern == true)
+        {
+            drag.transform.SetParent(_lanternLayer);
+        }
+
+        else
+        {
+            drag.transform.SetParent(_parentLayer);
+        }
+
+
         _currentDraggedObject = null;
     }
 
