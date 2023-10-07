@@ -37,7 +37,7 @@ public class DragManager : MonoBehaviour
         Debug.Log("isOverLatnern " + lantern.GetComponent<LanternTest>().isOverLantern);
         if(lantern.GetComponent<LanternTest>().isOverLantern == true)
         {
-            drag.transform.SetParent(_lanternLayer);
+            drag.transform.SetParent(lantern.transform);
         }
 
         else
