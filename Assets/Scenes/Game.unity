@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 43225085}
   - component: {fileID: 43225087}
   - component: {fileID: 43225088}
+  - component: {fileID: 43225089}
   m_Layer: 5
   m_Name: DragObject
   m_TagString: DragObject
@@ -226,6 +227,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab506b8b27f6148948157e7cd693864c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &43225089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43225083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d8b52cd8c9f84e228e2ed2f24c333b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UILingerTime: 0.5
 --- !u!1 &108854447
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,6 +327,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27a0ddb85e1e498da5e813ff861c35d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  currentIndex: 0
   paperPrototype: {fileID: 43225083}
 --- !u!114 &236556468
 MonoBehaviour:
