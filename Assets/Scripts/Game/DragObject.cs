@@ -28,7 +28,7 @@ public class DragObject : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         if (_manager.IsWithinBounds(_worldCenterPoint + eventData.delta))
         {
-            transform.Translate(eventData.delta);
+            transform.Translate(eventData.delta, Space.World);
         }
     }
 
