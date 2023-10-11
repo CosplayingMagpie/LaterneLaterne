@@ -76,7 +76,7 @@ Material:
     m_Floats:
     - _BlurAmount: 57.9
     - _EnableExternalAlpha: 0
-    - _Fade: 0.5
+    - _Fade: 1
     - _Speed: 4
     - _Strength: 0.01
     m_Colors:
