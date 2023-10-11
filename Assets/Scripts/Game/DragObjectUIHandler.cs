@@ -10,12 +10,13 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
     private GameObject colorChangeButton;
     private GameObject resizeHandle;
     private GameObject outline;
+    private Material outlineMaterial;
 
     private Coroutine UICountdown;
     private bool isUILingering;
     private bool isUIVanishing;
 
-    private Tween fade1, fade2;
+    private Tween fade1, fade2, fade3;
 
     [SerializeField] float UILingerTime;
 
@@ -26,6 +27,8 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
         colorChangeButton = transform.GetChild(0).gameObject;
         resizeHandle = transform.GetChild(1).gameObject;
         outline = transform.GetChild(2).gameObject;
+        outlineMaterial = outline.GetComponent<Image>().material;
+        Debug.Log(outlineMaterial);
 
         colorChangeButton.GetComponent<Image>().DOFade(0, 1);
         colorChangeButton.SetActive(false);
@@ -34,7 +37,7 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
         resizeHandle.SetActive(false);
 
         //outline.GetComponent<Image>().DOFade(0, 1);
-        outline.SetActive(false);
+        outlineMaterial.SetFloat("_Fade", 1);
 
 
     }
@@ -44,11 +47,12 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
     {
         isUIVanishing = true;
         fade1 = resizeHandle.GetComponent<Image>().DOFade(0, 0.5f);
+        fade3 = outlineMaterial.DOFloat(1, "_Fade", 0.5f);
         fade2 =  colorChangeButton.GetComponent<Image>().DOFade(0, 0.5f).OnComplete(() =>
         {
             colorChangeButton.SetActive(false);
             resizeHandle.SetActive(false);
-            outline.SetActive(false);
+            //outline.SetActive(false);
             isUIVanishing = false;
 
         });
@@ -74,7 +78,7 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
         resizeHandle.SetActive(true);
         resizeHandle.GetComponent<Image>().DOFade(1, 0.5f);
 
-        outline.SetActive(true);
+        outlineMaterial.DOFloat(0, "_Fade", 0.5f);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
