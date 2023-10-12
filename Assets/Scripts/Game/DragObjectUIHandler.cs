@@ -10,7 +10,7 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
     private GameObject colorChangeButton;
     private GameObject resizeHandle;
     private GameObject outline;
-    private Material outlineMaterial;
+    public Material outlineMaterial;
 
     private Coroutine UICountdown;
     private bool isUILingering;
@@ -27,7 +27,8 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
         colorChangeButton = transform.GetChild(0).gameObject;
         resizeHandle = transform.GetChild(1).gameObject;
         outline = transform.GetChild(2).gameObject;
-        outlineMaterial = outline.GetComponent<Image>().material;
+
+        outlineMaterial = outline.GetComponent<Image>().materialForRendering;
         Debug.Log(outlineMaterial);
 
         colorChangeButton.GetComponent<Image>().DOFade(0, 1);
@@ -38,6 +39,7 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
 
         //outline.GetComponent<Image>().DOFade(0, 1);
         outlineMaterial.SetFloat("_Fade", 1);
+        //outline.SetActive(false);
 
 
     }
@@ -61,7 +63,7 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
 
     private void ActivateUI()
     {
-        if(isUILingering)
+        if (isUILingering)
         {
             StopCoroutine(UICountdown);
             isUILingering = false;
@@ -78,12 +80,14 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
         resizeHandle.SetActive(true);
         resizeHandle.GetComponent<Image>().DOFade(1, 0.5f);
 
+        //outline.SetActive(true);
         outlineMaterial.DOFloat(0, "_Fade", 0.5f);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         ActivateUI();
+        //Fire Event to Kill other outline tweens
     }
 
     public void OnPointerExit(PointerEventData eventData)
