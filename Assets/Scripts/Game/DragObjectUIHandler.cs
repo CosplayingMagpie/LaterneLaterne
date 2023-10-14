@@ -28,7 +28,8 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
         resizeHandle = transform.GetChild(1).gameObject;
         outline = transform.GetChild(2).gameObject;
 
-        outlineMaterial = outline.GetComponent<Image>().materialForRendering;
+        outlineMaterial = Instantiate(outline.GetComponent<Image>().materialForRendering);
+        outline.GetComponent<Image>().material = outlineMaterial;
         Debug.Log(outlineMaterial);
 
         colorChangeButton.GetComponent<Image>().DOFade(0, 1);
