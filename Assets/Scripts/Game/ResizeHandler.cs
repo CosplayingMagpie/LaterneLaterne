@@ -52,11 +52,13 @@ public class ResizeHandler : MonoBehaviour
         if (transform.position.y < parentTransform.position.y)
         {
             parentTransform.rotation = Quaternion.Euler(0, 0, angle);
+            transform.rotation = Quaternion.Euler(0, 0, angle);
         }
 
         else
         {
             parentTransform.rotation = Quaternion.Euler(0, 0, -angle);
+            transform.rotation = Quaternion.Euler(0, 0, -angle);
         }
         
 
