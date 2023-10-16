@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MaterialHandler : MonoBehaviour
 {
-    [SerializeField] Material[] craftPapers;
+    [SerializeField] Texture[] craftPapers;
 
     public static MaterialHandler Instance;
 
@@ -33,7 +33,7 @@ public class MaterialHandler : MonoBehaviour
         
     }
 
-    public Material GetCraftPaper(int index)
+    public Texture GetCraftPaper(int index)
     {
         index = index % craftPapers.Length;
         return craftPapers[index];
