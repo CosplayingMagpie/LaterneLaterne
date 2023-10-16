@@ -32,10 +32,10 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
         outline.GetComponent<Image>().material = outlineMaterial;
         Debug.Log(outlineMaterial);
 
-        colorChangeButton.GetComponent<Image>().DOFade(0, 1);
+        colorChangeButton.GetComponent<Image>().DOFade(0, 0);
         colorChangeButton.SetActive(false);
 
-        resizeHandle.GetComponent<Image>().DOFade(0, 1);
+        resizeHandle.GetComponent<Image>().DOFade(0, 0);
         resizeHandle.SetActive(false);
 
         //outline.GetComponent<Image>().DOFade(0, 1);
