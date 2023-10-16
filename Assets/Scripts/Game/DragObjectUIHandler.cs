@@ -10,7 +10,7 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
     private GameObject colorChangeButton;
     private GameObject resizeHandle;
     private GameObject outline;
-    public Material outlineMaterial;
+    public Material outlineMaterial, wobbleMaterial;
 
     private Coroutine UICountdown;
     private bool isUILingering;
@@ -24,15 +24,17 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
     void Start()
     {
         // Get UI Elements for the crafting Object
-        colorChangeButton = transform.GetChild(0).gameObject;
-        resizeHandle = transform.GetChild(1).gameObject;
+        colorChangeButton = transform.GetChild(1).gameObject;
+        resizeHandle = transform.GetChild(0).gameObject;
         outline = transform.GetChild(2).gameObject;
 
         outlineMaterial = Instantiate(outline.GetComponent<Image>().materialForRendering);
         outline.GetComponent<Image>().material = outlineMaterial;
-        Debug.Log(outlineMaterial);
 
-        colorChangeButton.GetComponent<Image>().DOFade(0, 0);
+        
+        wobbleMaterial = Instantiate(colorChangeButton.GetComponent<Image>().materialForRendering);
+        colorChangeButton.GetComponent<Image>().material = wobbleMaterial;
+        wobbleMaterial.SetFloat("_Fade", 1);
         colorChangeButton.SetActive(false);
 
         resizeHandle.GetComponent<Image>().DOFade(0, 0);
@@ -49,9 +51,10 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
     private void DeactivateUI()
     {
         isUIVanishing = true;
+        
         fade1 = resizeHandle.GetComponent<Image>().DOFade(0, 0.5f);
         fade3 = outlineMaterial.DOFloat(1, "_Fade", 0.5f);
-        fade2 =  colorChangeButton.GetComponent<Image>().DOFade(0, 0.5f).OnComplete(() =>
+        wobbleMaterial.DOFloat(1, "_Fade", 0.5f).OnComplete(() =>
         {
             colorChangeButton.SetActive(false);
             resizeHandle.SetActive(false);
@@ -77,12 +80,12 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
             isUIVanishing = false;
         }
         colorChangeButton.SetActive(true);
-        colorChangeButton.GetComponent<Image>().DOFade(1, 0.5f);
         resizeHandle.SetActive(true);
         resizeHandle.GetComponent<Image>().DOFade(1, 0.5f);
 
         //outline.SetActive(true);
         outlineMaterial.DOFloat(0, "_Fade", 0.5f);
+        wobbleMaterial.DOFloat(0, "_Fade", 0.5f);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
