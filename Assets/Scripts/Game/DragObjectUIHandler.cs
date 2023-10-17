@@ -93,14 +93,18 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
     {
         if(isUILingering == true)
         {
-            StopCoroutine(ShowUIForAWhileLonger());
+            StopCoroutine(UICountdown);
+            isUILingering = false;
         }
 
         if(isUIVanishing == true)
         {
-            DOTween.Kill(fade1);
-            DOTween.Kill(fade2);
-            DOTween.Kill(fade3);
+            fade1.Kill();
+            fade2.Kill();
+            fade3.Kill();
+            isUIVanishing = false;
+            //colorChangeButton.SetActive(true);
+            //resizeHandle.SetActive(true);
         }
 
         FadeInUI();
