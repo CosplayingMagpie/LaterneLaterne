@@ -241,6 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMaterial: {fileID: 0}
+  wobbleMaterial: {fileID: 0}
   UILingerTime: 0.5
 --- !u!1 &108854447
 GameObject:
@@ -397,7 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 1e39c5ad3b1fd462986f6c1f425d375a, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -413,7 +414,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
-  m_UseSpriteMesh: 0
+  m_UseSpriteMesh: 1
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &236556470
 CanvasRenderer:
@@ -471,8 +472,8 @@ GameObject:
   - component: {fileID: 830605421}
   - component: {fileID: 830605423}
   - component: {fileID: 830605422}
-  - component: {fileID: 830605424}
   - component: {fileID: 830605425}
+  - component: {fileID: 830605426}
   m_Layer: 5
   m_Name: ResizeRotateHandle
   m_TagString: Untagged
@@ -496,7 +497,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -43.3, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &830605422
@@ -537,18 +538,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830605420}
   m_CullTransparentMesh: 1
---- !u!114 &830605424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 830605420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd88d34272acd41b49a888e3f56f8a21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &830605425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -559,6 +548,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4e2416465c694705a09110ce5ff8b16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canMove: 0
+--- !u!114 &830605426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830605420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd88d34272acd41b49a888e3f56f8a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &936858720
@@ -629,6 +631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMaterial: {fileID: 0}
+  wobbleMaterial: {fileID: 0}
   UILingerTime: 0.5
 --- !u!114 &936858724
 MonoBehaviour:
@@ -1879,6 +1882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e2416465c694705a09110ce5ff8b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canMove: 0
 --- !u!114 &2076525706
 MonoBehaviour:
   m_ObjectHideFlags: 0

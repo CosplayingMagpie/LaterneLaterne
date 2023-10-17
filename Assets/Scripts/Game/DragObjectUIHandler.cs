@@ -28,12 +28,15 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
         resizeHandle = transform.GetChild(0).gameObject;
         outline = transform.GetChild(2).gameObject;
 
+        // Copy Outline Material
         outlineMaterial = Instantiate(outline.GetComponent<Image>().materialForRendering);
         outline.GetComponent<Image>().material = outlineMaterial;
 
-        
+        // Copy UI Material
         wobbleMaterial = Instantiate(colorChangeButton.GetComponent<Image>().materialForRendering);
         colorChangeButton.GetComponent<Image>().material = wobbleMaterial;
+
+        // Set Start Values
         wobbleMaterial.SetFloat("_Fade", 1);
         colorChangeButton.SetActive(false);
 
@@ -43,29 +46,9 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
         //outline.GetComponent<Image>().DOFade(0, 1);
         outlineMaterial.SetFloat("_Fade", 1);
         //outline.SetActive(false);
-
-
     }
 
-
-    private void DeactivateUI()
-    {
-        isUIVanishing = true;
-        
-        fade1 = resizeHandle.GetComponent<Image>().DOFade(0, 0.5f);
-        fade3 = outlineMaterial.DOFloat(1, "_Fade", 0.5f);
-        wobbleMaterial.DOFloat(1, "_Fade", 0.5f).OnComplete(() =>
-        {
-            colorChangeButton.SetActive(false);
-            resizeHandle.SetActive(false);
-            //outline.SetActive(false);
-            isUIVanishing = false;
-
-        });
-
-    }
-
-    private void ActivateUI()
+    private void FadeInUI()
     {
         if (isUILingering)
         {
@@ -88,10 +71,39 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
         wobbleMaterial.DOFloat(0, "_Fade", 0.5f);
     }
 
+    private void FadeOutUI()
+    {
+        isUIVanishing = true;
+
+        fade1 = resizeHandle.GetComponent<Image>().DOFade(0, 0.5f);
+        fade2 = outlineMaterial.DOFloat(1, "_Fade", 0.5f);
+        fade3 = wobbleMaterial.DOFloat(1, "_Fade", 0.5f).OnComplete(() =>
+        {
+            colorChangeButton.SetActive(false);
+            resizeHandle.SetActive(false);
+            //outline.SetActive(false);
+
+            isUIVanishing = false;
+        });
+    }
+
+
+
     public void OnPointerEnter(PointerEventData eventData)
     {
-        ActivateUI();
-        //Fire Event to Kill other outline tweens
+        if(isUILingering == true)
+        {
+            StopCoroutine(ShowUIForAWhileLonger());
+        }
+
+        if(isUIVanishing == true)
+        {
+            DOTween.Kill(fade1);
+            DOTween.Kill(fade2);
+            DOTween.Kill(fade3);
+        }
+
+        FadeInUI();
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -103,6 +115,7 @@ public class DragObjectUIHandler : MonoBehaviour, IPointerEnterHandler, IPointer
     {
         isUILingering = true;
         yield return new WaitForSeconds(UILingerTime);
-        DeactivateUI();
+        isUILingering = false;
+        FadeOutUI();
     }
 }

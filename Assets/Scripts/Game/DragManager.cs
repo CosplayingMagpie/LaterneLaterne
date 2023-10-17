@@ -6,7 +6,7 @@ public class DragManager : MonoBehaviour
 {
     [SerializeField]
     private RectTransform
-        _defaultLayer = null,
+        //_defaultLayer = null,
         _dragLayer = null,
         _parentLayer,
         _lanternLayer;
@@ -28,6 +28,7 @@ public class DragManager : MonoBehaviour
     {
         _currentDraggedObject = drag;
         _parentLayer = _currentDraggedObject.transform.parent.GetComponent<RectTransform>();
+        Debug.Log(_parentLayer);
         drag.transform.SetParent(_dragLayer);
         
     }
@@ -40,10 +41,10 @@ public class DragManager : MonoBehaviour
             drag.transform.SetParent(lantern.transform);
         }
 
-        else if(_currentDraggedObject.tag == "DragObject")
-        {
-            drag.transform.SetParent(_defaultLayer);
-        }
+        //else if(_currentDraggedObject.tag == "DragObject")
+        //{
+        //    drag.transform.SetParent(_defaultLayer);
+        //}
 
         else
         {
