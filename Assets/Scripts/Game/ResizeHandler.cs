@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ResizeHandler : MonoBehaviour
+public class ResizeHandler : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     private DragManager _manager = null;
 
@@ -27,6 +27,41 @@ public class ResizeHandler : MonoBehaviour
     private Rect _boundingBox;
 
 
+
+    private Rect boundingBox;
+    private RectTransform parentLayer;
+
+    public bool isDragged;
+
+    private void Awake()
+    {
+        //_manager = GetComponentInParent<DragManager>();
+        //_centerPoint = (transform as RectTransform).rect.center;
+        parentLayer = transform.parent.GetComponent<RectTransform>();
+        //SetBoundingBoxRect(parentLayer);
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+
+        isDragged = true;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        // Get Parent object bounds
+
+        if (canMove)
+        {
+            transform.Translate(eventData.delta, Space.World);
+        }
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+
+        isDragged = false;
+    }
 
     private void Start()
     {
@@ -55,17 +90,17 @@ public class ResizeHandler : MonoBehaviour
         distance = Vector3.Distance(parentTransform.position, transform.position);
         float newScale = distance / originalDistance;
 
-        //if (newScale <= 0.5f || newScale >= 1.5f)
-        //{
+        if (newScale <= 0.5f || newScale >= 1.5f)
+        {
             newScale = Mathf.Clamp(newScale, 0.5f, 1.5f);
-            //canMove = false;
+            canMove = false;
 
-        //}
+        }
 
-        //else
-        //{
-        //    canMove = true;
-        //}
+        else
+        {
+            canMove = true;
+        }
 
         //sets the new size
         parentTransform.localScale = new Vector3(1, 1, 1) * newScale;
