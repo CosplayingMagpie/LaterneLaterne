@@ -38,4 +38,9 @@ public class MaterialHandler : MonoBehaviour
         index = index % craftPapers.Length;
         return craftPapers[index];
     }
+
+    public int SetRandomIndex()
+    {
+        return Random.Range(0, craftPapers.Length);
+    }
 }

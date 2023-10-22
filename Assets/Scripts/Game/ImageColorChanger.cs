@@ -17,6 +17,9 @@ public class ImageColorChanger : MonoBehaviour
         _material = Instantiate(GetComponent<Image>().material);
         GetComponent<Image>().material = _material;
 
+        currentIndex = MaterialHandler.Instance.SetRandomIndex();
+        _material.SetTexture("_PaperSprite", MaterialHandler.Instance.GetCraftPaper(currentIndex));
+
     }
 
     public void NextColor()
