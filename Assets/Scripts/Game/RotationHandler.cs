@@ -47,6 +47,8 @@ public class RotationHandler : MonoBehaviour, IDragHandler, IBeginDragHandler, I
             parentTransform.rotation = Quaternion.Euler(0, 0, -angle);
             transform.rotation = Quaternion.Euler(0, 0, -angle);
         }
+
+        Debug.Log("we rotate");
     }
 
     public void OnEndDrag(PointerEventData eventData)

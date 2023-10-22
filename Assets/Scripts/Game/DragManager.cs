@@ -6,7 +6,7 @@ public class DragManager : MonoBehaviour
 {
     [SerializeField]
     private RectTransform
-        //_defaultLayer = null,
+        _defaultLayer = null,
         _dragLayer = null,
         _parentLayer,
         _lanternLayer;
@@ -36,7 +36,7 @@ public class DragManager : MonoBehaviour
     public void UnregisterDraggedObject(DragObject drag)
     {
         Debug.Log("isOverLatnern " + lantern.GetComponent<LanternTest>().isOverLantern);
-        if(lantern.GetComponent<LanternTest>().isOverLantern == true && _currentDraggedObject.tag == "DragObject")
+        if(lantern.GetComponent<LanternTest>().isOverLantern == true)
         {
             drag.transform.SetParent(lantern.transform);
         }
@@ -48,7 +48,7 @@ public class DragManager : MonoBehaviour
 
         else
         {
-            drag.transform.SetParent(_parentLayer);
+            drag.transform.SetParent(_defaultLayer);
         }
 
 

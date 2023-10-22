@@ -22,7 +22,7 @@ public class ResizeHandler : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
     private Vector3 originalDirection;
     private Vector3 newDirection;
 
-    public bool canMove;
+   // public bool canMove;
 
     private Rect _boundingBox;
 
@@ -51,41 +51,11 @@ public class ResizeHandler : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
     {
         // Get Parent object bounds
 
-        if (canMove)
-        {
+        //if (canMove)
+        //{
             transform.Translate(eventData.delta, Space.World);
-        }
-    }
+        //}
 
-    public void OnEndDrag(PointerEventData eventData)
-    {
-
-        isDragged = false;
-    }
-
-    private void Start()
-    {
-        canMove = true;
-        parentTransform = transform.parent;
-        parentRect = parentTransform.GetComponent<RectTransform>();
-
-        //setting up the sizing variables
-        originalDistance = Vector3.Distance(parentTransform.position, transform.position);
-        initialSize = parentTransform.localScale;
-        initialPosition = transform.position;
-
-        //setting up the rotation Variables
-        originalDirection = parentTransform.position - transform.position;
-
-        //SetBoundingBoxRect(parentRect);
-    }
-
-
-
-
-    // Update is called once per frame
-    void Update()
-    {
         //Calculates the new size depending on the distance dragged
         distance = Vector3.Distance(parentTransform.position, transform.position);
         float newScale = distance / originalDistance;
@@ -93,13 +63,8 @@ public class ResizeHandler : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
         if (newScale <= 0.5f || newScale >= 1.5f)
         {
             newScale = Mathf.Clamp(newScale, 0.5f, 1.5f);
-            canMove = false;
+            //canMove = false;
 
-        }
-
-        else
-        {
-            canMove = true;
         }
 
         //sets the new size
@@ -121,14 +86,50 @@ public class ResizeHandler : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
             parentTransform.rotation = Quaternion.Euler(0, 0, -angle);
             transform.rotation = Quaternion.Euler(0, 0, -angle);
         }
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+
+        isDragged = false;
+    }
+
+    private void Start()
+    {
+        //canMove = true;
+        parentTransform = transform.parent;
+        parentRect = parentTransform.GetComponent<RectTransform>();
+
+        //setting up the sizing variables
+        originalDistance = Vector3.Distance(parentTransform.position, transform.position);
+        initialSize = parentTransform.localScale;
+        initialPosition = transform.position;
+
+        //setting up the rotation Variables
+        originalDirection = parentTransform.position - transform.position;
+
+        //SetBoundingBoxRect(parentRect);
+    }
+
+
+
+
+    // Update is called once per frame
+    void Update()
+    {
+
+
+        //else
+        //{
+        //    canMove = true;
+        //}
+
+
 
 
     }
 
-    //public bool IsWithinBounds(Vector2 position)
-    //{
-    //    return _boundingBox.Contains(position);
-    //}
+
 
 
     private void OnMouseUp()
