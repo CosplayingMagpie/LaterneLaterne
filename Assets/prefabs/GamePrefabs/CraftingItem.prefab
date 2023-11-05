@@ -264,8 +264,7 @@ GameObject:
   - component: {fileID: 6382784540411377388}
   - component: {fileID: 6175289566648637991}
   - component: {fileID: 8362145210580902648}
-  - component: {fileID: 5048369567118785540}
-  - component: {fileID: 6243439070048945804}
+  - component: {fileID: 1590727104693532335}
   m_Layer: 5
   m_Name: ResizeRotateHandle
   m_TagString: Handle
@@ -330,7 +329,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5048369567118785540
+--- !u!114 &1590727104693532335
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -340,19 +339,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4e2416465c694705a09110ce5ff8b16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDragged: 0
---- !u!114 &6243439070048945804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6119011878281653763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd88d34272acd41b49a888e3f56f8a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isDragged: 0

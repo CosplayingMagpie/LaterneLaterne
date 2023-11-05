@@ -39,6 +39,10 @@ public class DragObject : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void OnDrag(PointerEventData eventData)
     {
+        //if (gameObject.tag == "Handle")
+        //{
+        //    return;
+        //}
         if (_manager.IsWithinBounds(_worldCenterPoint + eventData.delta))
         {
             transform.Translate(eventData.delta, Space.World);

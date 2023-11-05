@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ResizeHandler : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class ResizeHandler : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     private DragManager _manager = null;
 
@@ -35,7 +35,7 @@ public class ResizeHandler : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 
     private void Awake()
     {
-        //_manager = GetComponentInParent<DragManager>();
+        
         //_centerPoint = (transform as RectTransform).rect.center;
         parentLayer = transform.parent.GetComponent<RectTransform>();
         //SetBoundingBoxRect(parentLayer);
@@ -45,46 +45,58 @@ public class ResizeHandler : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
     {
 
         isDragged = true;
+        //resets position of handle and parent size, so next resizing will be to new scale
+        initialPosition = transform.position;
+        initialSize = parentTransform.localScale;
+
+        //resetting up the rotation Variables
+        originalDirection = parentTransform.position - transform.position;
+    }
+
+
+    private void Update()
+    {
+
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        // Get Parent object bounds
-
-        //if (canMove)
-        //{
+        if (isDragged)
+        {
             transform.Translate(eventData.delta, Space.World);
-        //}
 
-        //Calculates the new size depending on the distance dragged
-        distance = Vector3.Distance(parentTransform.position, transform.position);
-        float newScale = distance / originalDistance;
+            //Calculates the new size depending on the distance dragged
+            distance = Vector3.Distance(parentTransform.position, transform.position);
+            float newScale = distance / originalDistance;
 
-        if (newScale <= 0.5f || newScale >= 1.5f)
-        {
-            newScale = Mathf.Clamp(newScale, 0.5f, 1.5f);
-            //canMove = false;
+            if (newScale <= 0.5f || newScale >= 1.5f)
+            {
+                newScale = Mathf.Clamp(newScale, 0.5f, 1.5f);
+                //canMove = false;
 
-        }
+            }
 
-        //sets the new size
-        parentTransform.localScale = new Vector3(1, 1, 1) * newScale;
+            //sets the new size
+            parentTransform.localScale = new Vector3(1, 1, 1) * newScale;
 
-        //calculates the new rotation
-        newDirection = parentTransform.position - transform.position;
-        float angle = Vector3.Angle(originalDirection, newDirection);
+            //calculates the new rotation
+            newDirection = parentTransform.position - transform.position;
+            float angle = Vector3.Angle(originalDirection, newDirection);
 
-        //sets the new rotation depending on y-value
-        if (transform.position.y < parentTransform.position.y)
-        {
-            parentTransform.rotation = Quaternion.Euler(0, 0, angle);
-            transform.rotation = Quaternion.Euler(0, 0, angle);
-        }
+            //sets the new rotation depending on y-value
+            if (transform.position.y < parentTransform.position.y)
+            {
+                parentTransform.rotation = Quaternion.Euler(0, 0, angle);
+                //transform.rotation = Quaternion.Euler(0, 0, angle);
+            }
 
-        else
-        {
-            parentTransform.rotation = Quaternion.Euler(0, 0, -angle);
-            transform.rotation = Quaternion.Euler(0, 0, -angle);
+            else
+            {
+                parentTransform.rotation = Quaternion.Euler(0, 0, -angle);
+                //transform.rotation = Quaternion.Euler(0, 0, -angle);
+            }
+
+            //originalDirection = parentTransform.position - transform.position;
         }
     }
 
@@ -92,6 +104,12 @@ public class ResizeHandler : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
     {
 
         isDragged = false;
+        //resets position of handle and parent size, so next resizing will be to new scale
+        initialPosition = transform.position;
+        initialSize = parentTransform.localScale;
+
+        //resetting up the rotation Variables
+        originalDirection = parentTransform.position - transform.position;
     }
 
     private void Start()
@@ -114,32 +132,11 @@ public class ResizeHandler : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 
 
 
-    // Update is called once per frame
-    void Update()
-    {
-
-
-        //else
-        //{
-        //    canMove = true;
-        //}
-
-
-
-
-    }
-
-
 
 
     private void OnMouseUp()
     {
-        //resets position of handle and parent size, so next resizing will be to new scale
-        initialPosition = transform.position;
-        initialSize = parentTransform.localScale;
 
-        //resetting up the rotation Variables
-        originalDirection = parentTransform.position - transform.position;
     }
 
     //private void Awake()
